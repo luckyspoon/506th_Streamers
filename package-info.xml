@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>506th:StreamProfiles</id>
+	<name>506th Stream Profiles</name>
+	<version>0.0.4</version>
+	<type>modification</type>
+	
+	<install for="2.0 - 2.0.99">
+		<database>2.x/install.php</database> 	
+		<modification>2.x/install.xml</modification>
+		<modification>2.x/language-utf8.xml</modification>
+		
+		<require-file name="smifacebook.png"		destination="$imagesdir" />
+		<require-file name="smitwitter.png"			destination="$imagesdir" />
+		<require-file name="smiyoutube.png"			destination="$imagesdir" />
+		<require-file name="smitwitch.png"			destination="$imagesdir" />
+		<require-file name="smisteam.png"			destination="$imagesdir" />
+		<require-file name="streamerslive.gif"		destination="$imagesdir" />
+
+		<require-file name="Streamers.php"			destination="$sourcedir" />
+		<require-file name="Streamers.template.php"	destination="$themedir" />
+		
+	</install>
+
+	<uninstall for="2.0 - 2.0.99">
+		<modification reverse="true">2.x/install.xml</modification>
+		<modification reverse="true">2.x/language-utf8.xml</modification>		
+		
+		<remove-file name="$imagesdir/smifacebook.png" />
+		<remove-file name="$imagesdir/smitwitter.png" />
+		<remove-file name="$imagesdir/smiyoutube.png" />
+		<remove-file name="$imagesdir/smitwitch.png" />
+		<remove-file name="$imagesdir/smisteam.png" />
+		<remove-file name="$imagesdir/streamerslive.gif" />
+
+		<remove-file name="$sourcedir/Streamers.php" />
+		<remove-file name="$themedir/Streamers.template.php" />
+
+	</uninstall>
+	
+</package-info>

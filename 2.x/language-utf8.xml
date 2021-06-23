@@ -1,0 +1,47 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>506th:StreamProfiles</id>
+	<version>0.0.4</version>
+	
+	<file name="$languagedir/Modifications.english-utf8.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[?>]]></search>
+            <add><![CDATA[$txt['smi_buddies_title'] = 'Social Networks';
+$txt['smi_facebook_title'] = 'Facebook';
+$txt['smi_facebook_desc'] = '';
+$txt['smi_twitter_title'] = 'Twitter';
+$txt['smi_twitter_desc'] = '';
+$txt['smi_youtube_title'] = 'Youtube';
+$txt['smi_youtube_desc'] = '';
+$txt['smi_twitch_title'] = 'Twitch';
+$txt['smi_twitch_desc'] = '';
+$txt['smi_steam_title'] = 'Steam';
+$txt['smi_steam_desc'] = '';
+$txt['custom_edit_placement_withsmiicons'] = 'With Social Media Icons';
+$txt['custom_profile_placement_withsmiicons'] = 'With Social Media Icons';
+$txt['custom_smi_enclose'] = '<strong>Social Media Icons (Do NOT Skip!):</strong>';
+$txt['custom_smi_enclose_desc'] = 'For <u>custom Social Media Icons</u>, this must be completed. Click the <strong>Help</strong> icon for detailed instructions';
+$txt['custom_smiicon_image'] = 'Add a custom Social Media Icon Image';
+$txt['custom_smiicon_image_desc'] = 'ONLY for Custom Social Media Icons. Images should be 16 X 16 in size.<br />Upload images to <strong>Themes/{theme name}/images</strong> folder';
+$txt['customsmi_images_url'] = '{theme URL}/images/';						
+]]></add>
+        </operation>
+   </file>
+	
+	<file name="$languagedir/Help.english-utf8.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[?>]]></search>
+            <add><![CDATA[$helptxt['customsmi_show_enclosed'] = 'Encloses the user input within the URL profile link.  This will allow you to add more Social Media Icons and allow them to align with the default icons, etc. <br /><u>Example:</u> <strong>Facebook:</strong> (find the profile path)<br />
+		http://facebook.com/johndoe  (sample profile URL)<br />
+		http://facebook.com/{INPUT}  (this will be used as the setting) <br /><br />
+		Use the following variable:<br />
+		<ul class="normallist">
+			<li>{INPUT} - The input specified by the user. This will insert the username in the Social Media profile URL supplied by the member when they modify this option.</li>
+		</ul>';
+
+]]></add>
+        </operation>
+   </file>
+	
+</modification>
