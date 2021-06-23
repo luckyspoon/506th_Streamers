@@ -46,7 +46,7 @@ function streamers_menu(array &$menu_buttons) {
 	$menu_buttons = $new_menu;
 }
 
-function getStreamers(){
+function buildStreamerCache(){
 	global $context, $scripturl, $txt, $smcFunc;
 
 	$ranks_offline = $ranks = array(
@@ -57,6 +57,7 @@ function getStreamers(){
 		'1LT' => [],
 		'1st' => [],
 		'2LT' => [],
+		'2nd' => [],
 		'CW5' => [],
 		'CW4' => [],
 		'CW3' => [],
@@ -84,7 +85,7 @@ function getStreamers(){
 	$users = $smcFunc['db_query']('','
 		SELECT youtube,twitch,steam,facebook,twitter,id_member,member_name,real_name,avatar
 		FROM {db_prefix}members
-		WHERE id_group IN (18,5)
+		WHERE id_group IN (1,18,5)
 		AND twitch != ""
 		',array()
 	);
@@ -120,33 +121,49 @@ function getStreamers(){
 	    }
 	}
 
-	return array(
+	$out = array(
 		'ranks' => $ranks,
 		'ranks_offline' => $ranks_offline,
 		'count_online' => $count_online,
 		'count_offline' => $count_offline
 	);
+	file_put_contents("twitch_results.txt", json_encode($out));
+}
+
+function getStreamers(){
+	if((filemtime("twitch_results.txt") < (time()-300)) or (!is_file("twitch_results.txt"))) {
+		buildStreamerCache();
+	}
+	return json_decode(file_get_contents("twitch_results.txt"),true);
 }
 
 function twitchGet($url){
 	global $context, $scripturl, $txt, $smcFunc;
 	
 	$twitch_client = 'pu1pucsu895uopkdphh30g52qrjbxn';
-	$twitch_secret = 'rfkrgmdeqpxiewl1cltn2k9mte4x2i';
+	$twitch_secret = 'wqylu6s87h3os8ltkb74275g4pudhg';
 
-	$curl = curl_init("https://id.twitch.tv/oauth2/token?client_id=".$twitch_client."&client_secret=".$twitch_secret."&grant_type=client_credentials");
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_POST, 1);
-    $twitch_response = curl_exec($curl);
-    $twitch_response = json_decode($twitch_response);
-    curl_close($curl);
-    
-    $twitch_token = $twitch_response->access_token;
+	if(!is_file('twitch_key.txt')){
+		$curl = curl_init("https://id.twitch.tv/oauth2/token?client_id=".$twitch_client."&client_secret=".$twitch_secret."&grant_type=client_credentials");
+	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($curl, CURLOPT_POST, 1);
+	    $twitch_response = curl_exec($curl);
+	    $twitch_response = json_decode($twitch_response);
+	    curl_close($curl);
+	    
+	    $twitch_token = $twitch_response->access_token;
+	    file_put_contents('twitch_key.txt', $twitch_token);
+	} else {
+		$twitch_token = file_get_contents('twitch_key.txt');
+	}
 
 	$curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Client-ID: '.$twitch_client));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Client-ID: '.$twitch_client, 'Authorization: Bearer '.$twitch_token));
     $twitchResponse = curl_exec($curl);
+
+	file_put_contents('twitch_log.txt',$twitchResponse);
+
     $twitchResponse = json_decode($twitchResponse);
     curl_close($curl);
 
