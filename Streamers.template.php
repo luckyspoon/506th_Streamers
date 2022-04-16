@@ -126,11 +126,11 @@ function template_main(){
 				if(count($users) == 0){ continue; }
 				foreach($users as $user){
 					echo '
-					<div class="streamer live" style="background-image:url('.str_replace(array("{width}","{height}"),array(500,281),$user['status']->thumbnail_url).');" data-youtube="'.$user['youtube'].'" data-twitch="'.$user['twitch'].'" data-twitter="'.$user['twitter'].'" data-facebook="'.$user['facebook'].'" data-steam="'.$user['steam'].'" data-id="'.$user['ID'].'">
+					<div class="streamer live" style="background-image:url('.str_replace(array("{width}","{height}"),array(500,281),$user['status']['thumbnail_url']).');" data-youtube="'.$user['youtube'].'" data-twitch="'.$user['twitch'].'" data-twitter="'.$user['twitter'].'" data-facebook="'.$user['facebook'].'" data-steam="'.$user['steam'].'" data-id="'.$user['ID'].'">
     					<i class="fas fa-fw fa-video" style="color:#093;"></i> <span class="dn">'.$user['DisplayName'].'</span><br />
-    					<small><i class="fas fa-fw fa-eye" style="color:#C00;"></i> '.$user['status']->viewer_count.'</small><br />
-    					<small><i class="fas fa-fw fa-gamepad"></i> '.$user['status']->game_name.'</small><br />
-    					<small>'.$user['status']->title.'</small>
+    					<small><i class="fas fa-fw fa-eye" style="color:#C00;"></i> '.$user['status']['viewer_count'].'</small><br />
+    					<small><i class="fas fa-fw fa-gamepad"></i> '.$user['status']['game_name'].'</small><br />
+    					<marquee scrollamount="3"><small>'.$user['status']['title'].'</small></marquee>
 					</div>';
 				}
 			}

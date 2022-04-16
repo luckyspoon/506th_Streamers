@@ -1,0 +1,602 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>506th:StreamProfiles</id>
+	<version>0.0.4</version>
+
+	<file name="$boarddir/index.php">
+		<operation>
+			<search position="after"><![CDATA['smstats' => array('Stats.php', 'SMStats'),]]></search>
+			<add><![CDATA['streamers' => array('Streamers.php', 'Streamers'),]]></add>
+		</operation>
+	</file>
+	
+	<file name="$sourcedir/Load.php">
+	
+		<operation>
+			<search position="before"><![CDATA[		'msn' => $profile['msn'] !='' && (empty($modSettings['guest_hideContacts']) || !$user_info['is_guest']) ? array(
+			'name' => $profile['msn'],
+			'href' => 'http://members.msn.com/' . $profile['msn'],
+			'link' => '<a class="msn new_win" href="http://members.msn.com/' . $profile['msn'] . '" title="' . $txt['msn_title'] . ' - ' . $profile['msn'] . '"><img src="' . $settings['images_url'] . '/msntalk.gif" alt="' . $txt['msn_title'] . ' - ' . $profile['msn'] . '" /></a>',
+			'link_text' => '<a class="msn new_win" href="http://members.msn.com/' . $profile['msn'] . '" title="' . $txt['msn_title'] . ' - ' . $profile['msn'] . '">' . $profile['msn'] . '</a>'
+		) : array('name' => '', 'href' => '', 'link' => '', 'link_text' => ''),]]></search>
+			<add><![CDATA[
+		'facebook' => $profile['facebook'] !='' && (empty($modSettings['guest_hideContacts']) || !$user_info['is_guest']) ? array(
+			'name' => $profile['facebook'],
+			'href' => 'http://www.facebook.com/'.$profile['facebook'],
+			'link' => '<a href="http://www.facebook.com/' . $profile['facebook'] . '" target="_blank" title="' . $txt['smi_facebook_title'] . ' - ' . $profile['facebook'] . '"><img src="' . $settings['images_url'] . '/smifacebook.png" alt="Facebook" border="0" /></a>',
+			'link_text' => '<a href="http://www.facebook.com/' . $profile['facebook'] . '" target="_blank" title="' . $txt['smi_facebook_title'] . ' - ' . $profile['facebook'] . '">' . $profile['facebook'] . '</a>'
+		) : array('name' => '', 'href' => '', 'link' => '', 'link_text' => ''),		
+		'twitter' => $profile['twitter'] !='' && (empty($modSettings['guest_hideContacts']) || !$user_info['is_guest']) ? array(
+			'name' => $profile['twitter'],
+			'href' => 'http://www.twitter.com/'.$profile['twitter'],
+			'link' => '<a href="http://www.twitter.com/' . $profile['twitter'] . '" target="_blank" title="' . $txt['smi_twitter_title'] . ' - ' . $profile['twitter'] . '"><img src="' . $settings['images_url'] . '/smitwitter.png" alt="Twitter" border="0" /></a>',
+			'link_text' => '<a href="http://www.twitter.com/' . $profile['twitter'] . '" target="_blank" title="' . $txt['smi_twitter_title'] . ' - ' . $profile['twitter'] . '">' . $profile['twitter'] . '</a>'
+		) : array('name' => '', 'href' => '', 'link' => '', 'link_text' => ''),
+		'youtube' => $profile['youtube'] !='' && (empty($modSettings['guest_hideContacts']) || !$user_info['is_guest']) ? array(
+			'name' => $profile['youtube'],
+			'href' => 'http://www.youtube.com/c/'.$profile['youtube'],
+			'link' => '<a href="http://www.youtube.com/c/' . $profile['youtube'] . '" target="_blank" title="' . $txt['smi_youtube_title'] . ' - ' . $profile['youtube'] . '"><img src="' . $settings['images_url'] . '/smiyoutube.png" alt="Youtube" border="0" /></a>',
+			'link_text' => '<a href="http://www.youtube.com/c/' . $profile['youtube'] . '" target="_blank" title="' . $txt['smi_youtube_title'] . ' - ' . $profile['youtube'] . '">' . $profile['youtube'] . '</a>'
+		) : array('name' => '', 'href' => '', 'link' => '', 'link_text' => ''),
+		'twitch' => $profile['twitch'] !='' && (empty($modSettings['guest_hideContacts']) || !$user_info['is_guest']) ? array(
+			'name' => $profile['twitch'],
+			'href' => 'http://www.twitch.com/' . $profile['twitch'] . '',
+			'link' => '<a href="http://www.twitch.com/' . $profile['twitch'] . '/" target="_blank" title="' . $txt['smi_twitch_title'] . ' - ' . $profile['twitch'] . '"><img src="' . $settings['images_url'] . '/smitwitch.png" alt="twitch" border="0" /></a>',
+			'link_text' => '<a href="http://www.twitch.com/' . $profile['twitch'] . '/" target="_blank" title="' . $txt['smi_twitch_title'] . ' - ' . $profile['twitch'] . '">' . $profile['twitch'] . '</a>'
+		) : array('name' => '', 'href' => '', 'link' => '', 'link_text' => ''),
+		'steam' => $profile['steam'] !='' && (empty($modSettings['guest_hideContacts']) || !$user_info['is_guest']) ? array(
+			'name' => $profile['steam'],
+			'href' => 'https://steamcommunity.com/id/'.$profile['steam'],
+			'link' => '<a href="https://steamcommunity.com/id/' . $profile['steam'] . '" target="_blank" title="' . $txt['smi_steam_title'] . ' - ' . $profile['steam'] . '"><img src="' . $settings['images_url'] . '/smisteam.png" alt="steam" border="0" /></a>',
+			'link_text' => '<a href="https://steamcommunity.com/id/' . $profile['steam'] . '" target="_blank" title="' . $txt['smi_steam_title'] . ' - ' . $profile['steam'] . '">' . $profile['steam'] . '</a>'
+		) : array('name' => '', 'href' => '', 'link' => '', 'link_text' => ''),]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[mem.birthdate, mem.member_ip, mem.member_ip2, mem.icq, mem.aim, mem.yim, mem.msn, mem.posts, mem.last_login,]]></search>
+			<add><![CDATA[mem.facebook, mem.twitter, mem.youtube, mem.twitch, mem.steam, mem.birthdate, mem.member_ip, mem.member_ip2, mem.icq, mem.aim, mem.yim, mem.msn, mem.posts, mem.last_login,]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[mem.birthdate, mem.icq, mem.aim, mem.yim, mem.msn, mem.posts, mem.last_login, mem.karma_good,]]></search>
+			<add><![CDATA[mem.facebook, mem.twitter, mem.youtube, mem.twitch, mem.steam, mem.birthdate, mem.icq, mem.aim, mem.yim, mem.msn, mem.posts, mem.last_login, mem.karma_good,]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA['icq', 'msn', 'aim', 'yim']]></search>
+			<add><![CDATA['icq', 'msn', 'aim', 'yim', 'facebook', 'twitter', 'youtube', 'twitch', 'steam']]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA['placement' => !empty($custom['placement']) ? $custom['placement'] : 0,]]></search>
+			<add><![CDATA[
+				'customsmiicon' => $custom['customsmiicon'],]]></add>
+		</operation>		
+		
+	</file>	
+	
+	<file name="$sourcedir/ManageSettings.php">
+	
+		<operation>
+			<search position="replace"><![CDATA['location', 'gender', 'website', 'posts', 'warning_status');
+	// What fields can't you put on the registration page?]]></search>
+			<add><![CDATA['facebook', 'twitter', 'youtube', 'twitch', 'steam', 'location', 'gender', 'website', 'posts', 'warning_status');
+	// What fields can't you put on the registration page?]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA['location', 'gender', 'website', 'posts', 'warning_status');
+		$fields_no_registration = array('posts', 'warning_status');]]></search>
+			<add><![CDATA['facebook', 'twitter', 'youtube', 'twitch', 'steam', 'location', 'gender', 'website', 'posts', 'warning_status');
+		$fields_no_registration = array('posts', 'warning_status');]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[			'placement' => array(
+				'header' => array(
+					'value' => $txt['custom_profile_placement'],
+				),
+				'data' => array(
+					'function' => create_function('$rowData', '
+						global $txt;
+
+						return $txt[\'custom_profile_placement_\' . (empty($rowData[\'placement\']) ? \'standard\' : ($rowData[\'placement\'] == 1 ? \'withicons\' : \'abovesignature\'))];
+					'),]]></search>
+			<add><![CDATA[			'placement' => array(
+				'header' => array(
+					'value' => $txt['custom_profile_placement'],
+				),
+				'data' => array(
+					'function' => create_function('$rowData', '
+						global $txt;
+						$placements = array(
+							0 => \'standard\',
+							1 => \'withicons\',
+							2 => \'abovesignature\',
+							3 => \'withsmiicons\',
+						);
+						$placement = empty($rowData[\'placement\']) ? 0 : $rowData[\'placement\']; 
+						return $txt[\'custom_profile_placement_\' . $placements[$placement]];
+					'),]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[bbc, mask, enclose, placement]]></search>
+			<add><![CDATA[bbc, mask, enclose, placement, customsmiicon]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA['placement' => $row['placement'],]]></search>
+			<add><![CDATA[
+				'customsmiicon' => $row['customsmiicon'],]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA['placement' => 0,]]></search>
+			<add><![CDATA[
+			'customsmiicon' => '',]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA[$placement = isset($_POST['placement']) ? (int) $_POST['placement'] : 0;]]></search>
+			<add><![CDATA[
+		$customsmiicon = isset($_POST['customsmiicon']) ? $_POST['customsmiicon'] : '';]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[enclose = {string:enclose}, placement = {int:placement}]]></search>
+			<add><![CDATA[enclose = {string:enclose}, placement = {int:placement},
+					customsmiicon = {string:customsmiicon}]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA['placement' => $placement,]]></search>
+			<add><![CDATA[
+					'customsmiicon' => $customsmiicon,]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA['bbc' => 'int', 'mask' => 'string', 'enclose' => 'string', 'placement' => 'int',]]></search>
+			<add><![CDATA[
+					'customsmiicon' => 'string',]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[$bbc, $mask, $enclose, $placement,]]></search>
+			<add><![CDATA[$bbc, $mask, $enclose, $placement, $customsmiicon,]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[SELECT col_name, field_name, field_type, bbc, enclose, placement]]></search>
+			<add><![CDATA[SELECT col_name, field_name, field_type, bbc, enclose, placement, customsmiicon]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA['enclose' => !empty($row['enclose']) ? $row['enclose'] : '',]]></search>
+			<add><![CDATA[
+				'customsmiicon' => !empty($row['customsmiicon']) ? $row['customsmiicon'] : '',]]></add>
+		</operation>		
+		
+	</file>
+		
+	<file name="$sourcedir/Profile.php">
+		
+		<operation> 	
+			<search position="replace"><![CDATA[default_value, bbc, enclose, placement]]></search>
+			<add><![CDATA[default_value, bbc, enclose, placement, customsmiicon]]></add>
+		</operation>
+			
+		<operation> 	
+			<search position="before"><![CDATA['placement' => $row['placement'],]]></search>
+			<add><![CDATA[
+			'customsmiicon' => $row['customsmiicon'],]]></add>
+		</operation>
+		
+	</file>	
+		
+	<file name="$sourcedir/Profile-Modify.php">
+		
+		<operation> 	
+			<search position="before"><![CDATA[		'yim' => array(
+			'type' => 'text',
+			'label' => $txt['yim'],
+			'subtext' => $txt['your_yim'],
+			'size' => 24,
+			'input_attr' => array('maxlength="32"'),
+			'permission' => 'profile_extra',
+		),]]></search>
+			<add><![CDATA[
+		'facebook' => array(
+			'type' => 'text',
+			'label' => $txt['smi_facebook_title'],
+			'subtext' => $txt['smi_facebook_desc'],
+			'size' => 24,
+			'input_attr' => array('maxlength="250"'),
+			'permission' => 'profile_extra',
+		),
+		'twitter' => array(
+			'type' => 'text',
+			'label' => $txt['smi_twitter_title'],
+			'subtext' => $txt['smi_twitter_desc'],
+			'size' => 24,
+			'input_attr' => array('maxlength="250"'),
+			'permission' => 'profile_extra',
+		),
+		'youtube' => array(
+			'type' => 'text',
+			'label' => $txt['smi_youtube_title'],
+			'subtext' => $txt['smi_youtube_desc'],
+			'size' => 24,
+			'input_attr' => array('maxlength="250"'),
+			'permission' => 'profile_extra',
+		),
+		'twitch' => array(
+			'type' => 'text',
+			'label' => $txt['smi_twitch_title'],
+			'subtext' => $txt['smi_twitch_desc'],
+			'size' => 24,
+			'input_attr' => array('maxlength="250"'),
+			'permission' => 'profile_extra',
+		),
+		'steam' => array(
+			'type' => 'text',
+			'label' => $txt['smi_steam_title'],
+			'subtext' => $txt['smi_steam_desc'],
+			'size' => 24,
+			'input_attr' => array('maxlength="250"'),
+			'permission' => 'profile_extra',
+		),]]></add>
+		</operation>
+			
+		<operation> 	
+			<search position="before"><![CDATA['website_title', 'website_url',]]></search>
+			<add><![CDATA[
+                        'hr', 'facebook', 'twitter', 'youtube', 'twitch', 'steam',]]></add>
+		</operation>
+		
+	</file>	
+	
+	<file name="$sourcedir/Register.php">
+	
+		<operation>
+			<search position="replace"><![CDATA['yim',]]></search>
+			<add><![CDATA['yim', 'facebook', 'twitter', 'youtube', 'twitch', 'steam',]]></add>
+		</operation>
+		
+	</file>
+		
+	<file name="$sourcedir/Subs-Members.php">
+		
+		<operation>
+			<search position="before"><![CDATA[		'icq' => '',]]></search>
+			<add><![CDATA[
+		'facebook' => '',
+		'twitter' => '',
+		'youtube' => '',
+		'twitch' => '',
+		'steam' => '',]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA[mem.id_member, mem.member_name, mem.real_name, mem.email_address,]]></search>
+			<add><![CDATA[ mem.facebook, mem.twitter, mem.youtube, mem.twitch, mem.steam,]]></add>
+		</operation>
+		
+	</file>
+		
+	<file name="$themedir/Admin.template.php">
+		
+		<operation>
+			<search position="before"><![CDATA[<option value="2"', $context['field']['placement'] == '2' ? ' selected="selected"' : '', '>', $txt['custom_edit_placement_abovesignature'], '</option>]]></search>
+			<add><![CDATA[
+									<option value="3"', $context['field']['placement'] == '3' ? ' selected="selected"' : '', '>', $txt['custom_edit_placement_withsmiicons'], '</option>]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA[<span class="smalltext">', $txt['custom_edit_enclose_desc'], '</span>]]></search>
+			<add><![CDATA[
+								<br><br><a id="customsmi_show_enclosed" href="', $scripturl, '?action=helpadmin;help=customsmi_show_enclosed" onclick="return reqWin(this.href);" class="help"><img src="', $settings['images_url'], '/helptopics.gif" class="icon" alt="', $txt['help'], '" align="top" /></a>
+								<strong>', $txt['custom_smi_enclose'], ':</strong><br />
+								<span class="smalltext">', $txt['custom_smi_enclose_desc'], '</span>]]></add>
+		</operation>
+		
+		<operation>
+			<search position="before"><![CDATA[<textarea name="enclose" rows="10" cols="50">', @$context['field']['enclose'], '</textarea>
+							</dd>]]></search>
+			<add><![CDATA[
+							<dt>
+								<strong>', $txt['custom_smiicon_image'], ':</strong><br />
+								<span class="smalltext">', $txt['custom_smiicon_image_desc'], '</span>
+							</dt>
+							<dd>
+								', $txt['customsmi_images_url'], '<textarea name="customsmiicon" rows="1" cols="30">', @$context['field']['customsmiicon'], '</textarea> <img src="', $settings['images_url'], '/', $context['field']['customsmiicon'] == '' ? 'blank.gif' : $context['field']['customsmiicon'], '" alt="*" />
+							</dd>]]></add>
+		</operation>
+
+	</file>
+		
+	<file name="$themedir/Display.template.php">
+		
+		<operation>
+			<search position="after"><![CDATA[// Show the profile, website, email address, and personal message buttons.]]></search>
+			<add><![CDATA[			// This shows the social media icons.
+				echo '<li class="im_icons">
+				     <ul class="reset nolist">';
+			if (!$context['user']['is_guest'])
+				echo '
+										', !isset($context['disabled_fields']['facebook']) && !empty($message['member']['facebook']['link']) ? '<li>' . $message['member']['facebook']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['twitter']) && !empty($message['member']['twitter']['link']) ? '<li>' . $message['member']['twitter']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['youtube']) && !empty($message['member']['youtube']['link']) ? '<li>' . $message['member']['youtube']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['twitch']) && !empty($message['member']['twitch']['link']) ? '<li>' . $message['member']['twitch']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['steam']) && !empty($message['member']['steam']['link']) ? '<li>' . $message['member']['steam']['link'] . '</li>' : '', '';
+
+			// Any custom fields with Social Media?
+			if ((!empty($message['member']['custom_fields'])) && !$context['user']['is_guest'])
+			{
+				$shown = false;
+				foreach ($message['member']['custom_fields'] as $custom)
+				{
+					if ($custom['placement'] != 3 || empty($custom['value']))
+						continue;
+					if (empty($shown))
+					{
+						$shown = true;
+					}
+					echo '
+										<li><a href="', $custom['value'], '" title="', $custom['title'], ' - ', $custom['value'], '" target="blank" /><img src="', $settings['images_url'], '/', $custom['customsmiicon'], '" /></a></li>';
+				}
+				if ($shown)
+					echo '';
+			}
+					echo '
+									</ul>
+								</li>';
+
+]]></add>
+		</operation>
+
+	</file>
+	
+	<file name="$themedir/PersonalMessage.template.php">
+		
+		<operation>
+			<search position="after"><![CDATA[// Show the profile, website, email address, and personal message buttons.]]></search>
+			<add><![CDATA[			// This shows the social media icons.
+				echo '<li class="im_icons">
+				     <ul class="reset nolist">';
+			if (!empty($message['member']['custom_fields']))
+				echo '
+										', !isset($context['disabled_fields']['facebook']) && !empty($message['member']['facebook']['link']) ? '<li>' . $message['member']['facebook']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['twitter']) && !empty($message['member']['twitter']['link']) ? '<li>' . $message['member']['twitter']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['twitch']) && !empty($message['member']['twitch']['link']) ? '<li>' . $message['member']['twitch']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['steam']) && !empty($message['member']['steam']['link']) ? '<li>' . $message['member']['steam']['link'] . '</li>' : '', '
+										', !isset($context['disabled_fields']['youtube']) && !empty($message['member']['youtube']['link']) ? '<li>' . $message['member']['youtube']['link'] . '</li>' : '', '';
+
+			// Any custom fields with Social Media?
+			if (!empty($message['member']['custom_fields']))
+			{
+				$shown = false;
+				foreach ($message['member']['custom_fields'] as $custom)
+				{
+					if ($custom['placement'] != 3 || empty($custom['value']))
+						continue;
+					if (empty($shown))
+					{
+						$shown = true;
+					}
+					echo '
+										<li><a href="', $custom['value'], '" title="', $custom['title'], ' - ', $custom['value'], '" target="blank" /><img src="', $settings['images_url'], '/', $custom['customsmiicon'], '" /></a></li>';
+				}
+				if ($shown)
+					echo '';
+			}
+					echo '
+									</ul>
+								</li>';
+								
+]]></add>
+		</operation>
+
+	</file>	
+		
+	<file name="$themedir/Profile.template.php">
+	
+		<operation>
+			<search position="before"><![CDATA[<dd><em><a href="', $scripturl, '?action=emailuser;sa=email;uid=', $context['member']['id'], '">', $context['member']['email'], '</a></em></dd>';]]></search>
+			<add><![CDATA[
+				echo'<dt>', $txt['smi_buddies_title'], ': </dt>
+				     <dd>', !isset($context['disabled_fields']['facebook']) && !empty($context['member']['facebook']['link']) ? '' . $context['member']['facebook']['link'] . '' : '', '
+				', !isset($context['disabled_fields']['twitter']) && !empty($context['member']['twitter']['link']) ? '' . $context['member']['twitter']['link'] . '' : '', '
+				', !isset($context['disabled_fields']['youtube']) && !empty($context['member']['youtube']['link']) ? '' . $context['member']['youtube']['link'] . '' : '', '
+				', !isset($context['disabled_fields']['twitch']) && !empty($context['member']['twitch']['link']) ? '' . $context['member']['twitch']['link'] . '' : '', '
+				', !isset($context['disabled_fields']['steam']) && !empty($context['member']['steam']['link']) ? '' . $context['member']['steam']['link'] . '' : '', '';
+
+		// Any custom fields with Social Media?
+	if (!empty($context['custom_fields']))
+	{
+		$shown = false;
+		foreach ($context['custom_fields'] as $field)
+		{
+			if ($field['placement'] != 3 || empty($field['output_html']))
+				continue;
+
+			if (empty($shown))
+			{
+				echo '';
+				$shown = true;
+			}
+
+			echo ' <a href="', $field['output_html'], '" title="', $field['name'], ' - ', $field['value'], '" target="blank" /><img src="', $settings['images_url'], '/', $field['customsmiicon'], '" /></a>';
+		}
+
+		if (!empty($shown))
+			echo '';
+	}]]></add>
+		</operation> 		
+		
+	</file>
+	
+   <file name="$themedir/UltimateProfile.template.php" error="skip">
+		
+		<operation>
+			<search position="after"><![CDATA[			if (!isset($context['disabled_fields']['icq']) && !empty($context['member']['icq']['link']))
+				echo '	
+						<dt><img src="http://status.icq.com/online.gif?img=5&amp;icq=', $context['member']['icq']['name'], '" alt="', $txt['icq'], '" /></dt>
+						<dd>', $context['member']['icq']['link_text'], '</dd>';]]></search>
+			<add><![CDATA[			if (!isset($context['disabled_fields']['facebook']) && !empty($context['member']['facebook']['link']))
+				echo '	
+						<dt><img src="', $settings['images_url'] ,'/smifacebook.png" alt="', $txt['smi_facebook_title'], '" /></dt>
+						<dd>', $context['member']['facebook']['link_text'], '</dd>';
+
+			if (!isset($context['disabled_fields']['twitter']) && !empty($context['member']['twitter']['link']))
+				echo '	
+						<dt><img src="', $settings['images_url'] ,'/smitwitter.png" alt="', $txt['smi_twitter_title'], '" /></dt>
+						<dd>', $context['member']['twitter']['link_text'], '</dd>';						
+
+			if (!isset($context['disabled_fields']['youtube']) && !empty($context['member']['youtube']['link']))
+				echo '	
+						<dt><img src="', $settings['images_url'] ,'/smiyoutube.png" alt="', $txt['smi_youtube_title'], '" /></dt>
+						<dd>', $context['member']['youtube']['link_text'], '</dd>';
+
+			if (!isset($context['disabled_fields']['twitch']) && !empty($context['member']['twitch']['link']))
+				echo '	
+						<dt><img src="', $settings['images_url'] ,'/smitwitch.png" alt="', $txt['smi_twitch_title'], '" /></dt>
+						<dd>', $context['member']['twitch']['link_text'], '</dd>';
+
+			if (!isset($context['disabled_fields']['steam']) && !empty($context['member']['steam']['link']))
+				echo '	
+						<dt><img src="', $settings['images_url'] ,'/smisteam.png" alt="', $txt['smi_steam_title'], '" /></dt>
+						<dd>', $context['member']['steam']['link_text'], '</dd>';
+						
+			// Any custom fields for Social Media?
+			if (!empty($context['custom_fields']))
+			{
+				$shown = false;
+				foreach ($context['custom_fields'] as $field)
+				{
+					if ($field['placement'] != 3 || empty($field['output_html']))
+						continue;
+
+					if (empty($shown))
+					{
+						echo '';
+						$shown = true;
+					}
+
+					echo '
+						<dt><img src="', $settings['images_url'], '/', $field['customsmiicon'], '" /></dt>
+						<dd><a href="', $field['output_html'], '" title="', $field['name'], ' - ', $field['value'], '" target="blank" />', $field['value'], '</a></dd>';
+				}
+
+				if (!empty($shown))
+					echo '';
+			}
+						
+]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[			// Are there any custom profile fields for the summary?
+			if (!empty($context['custom_fields']))
+			{
+				$shown = false;
+				foreach ($context['custom_fields'] as $field)
+				{
+					if ($field['placement'] == 1 || empty($field['output_html']))
+					{
+						if (empty($shown))
+						{
+							echo '
+					<dl>';
+							$shown = true;
+						}
+
+						echo '
+						<dt><strong>', $field['name'], ':</strong></dt>
+						<dd>', $field['output_html'], '</dd>';
+					}
+				}
+
+				if (!empty($shown))
+					echo '
+					</dl>';
+			}]]></search>
+			<add><![CDATA[			// Are there any custom profile fields for the summary?
+			if (!empty($context['custom_fields']))
+			{
+				$shown = false;
+				foreach ($context['custom_fields'] as $field)
+				{
+					if ($field['placement'] != 1 || empty($field['output_html']))
+						continue;
+
+					if (empty($shown))
+					{
+						echo '
+					<dl>';
+						$shown = true;
+					}
+
+					echo '
+						<dt><strong>', $field['name'], ':</strong></dt>
+						<dd>', $field['output_html'], '</dd>';
+				}
+
+				if (!empty($shown))
+					echo '
+					</dl>';
+			}]]></add>
+		</operation>
+
+	</file>
+	
+	<file name="$languagedir/Modifications.english.php">
+		<operation>
+			<search position="after"><![CDATA[?>]]></search>
+            <add><![CDATA[$txt['smi_buddies_title'] = 'Social Networks';
+$txt['smi_facebook_title'] = 'Facebook';
+$txt['smi_facebook_desc'] = '';
+$txt['smi_twitter_title'] = 'Twitter';
+$txt['smi_twitter_desc'] = '';
+$txt['smi_youtube_title'] = 'Youtube';
+$txt['smi_youtube_desc'] = '';
+$txt['smi_twitch_title'] = 'Twitch';
+$txt['smi_twitch_desc'] = '';
+$txt['smi_steam_title'] = 'Steam';
+$txt['smi_steam_desc'] = '';
+$txt['custom_edit_placement_withsmiicons'] = 'With Social Media Icons';
+$txt['custom_profile_placement_withsmiicons'] = 'With Social Media Icons';
+$txt['custom_smi_enclose'] = '<strong>Social Media Icons (Do NOT Skip!):</strong>';
+$txt['custom_smi_enclose_desc'] = 'For <u>custom Social Media Icons</u>, this must be completed. Click the <strong>Help</strong> icon for detailed instructions';
+$txt['custom_smiicon_image'] = 'Add a custom Social Media Icon Image';
+$txt['custom_smiicon_image_desc'] = 'ONLY for Custom Social Media Icons. Images should be 16 X 16 in size.<br />Upload images to <strong>Themes/{theme name}/images</strong> folder';
+$txt['customsmi_images_url'] = '{theme URL}/images/';
+$txt['streamers'] = 'Streamers';
+]]></add>
+        </operation>
+   </file>
+	
+	<file name="$languagedir/Help.english.php">
+		<operation>
+			<search position="after"><![CDATA[?>]]></search>
+            <add><![CDATA[$helptxt['customsmi_show_enclosed'] = 'Encloses the user input within the URL profile link.  This will allow you to add more Social Media Icons and allow them to align with the default icons, etc. <br /><u>Example:</u> <strong>Facebook:</strong> (find the profile path)<br />
+		http://facebook.com/johndoe  (sample profile URL)<br />
+		http://facebook.com/{INPUT}  (this will be used as the setting) <br /><br />
+		Use the following variable:<br />
+		<ul class="normallist">
+			<li>{INPUT} - The input specified by the user. This will insert the username in the Social Media profile URL supplied by the member when they modify this option.</li>
+		</ul>';
+
+]]></add>
+        </operation>
+   </file>
+	
+	<file name="$languagedir/Who.english.php">
+		<operation>
+			<search position="end" />
+            <add><![CDATA[$txt['whoall_streamers'] = 'Viewing <a href="' . $scripturl . '?action=streamers">'.$txt['streamers'].'</a>.';]]></add>
+        </operation>
+   </file>
+
+</modification>
